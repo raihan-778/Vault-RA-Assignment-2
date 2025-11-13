@@ -1,4 +1,25 @@
-export default function Form() {
+import { useState } from "react";
+import { categories } from "/src/assets/category.js";
+
+export default function AuthForm({ handleSubmitForm }) {
+  const [formData, setFormData] = useState({
+    url: "",
+    color: "",
+    category: "",
+    username: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    console.log("form data", formData.url);
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
     <>
       <div class="max-w-7xl mx-auto mt-8 px-4">
@@ -25,12 +46,18 @@ export default function Form() {
                 </span>
                 <input
                   type="url"
+                  name="url"
+                  value={formData.url}
+                  onChange={handleInputChange}
                   placeholder="https://example.com"
                   class="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
+                  required
                 />
-                <span class="text-xs text-neutral-500">
-                  Include https:// for best results.
-                </span>
+                {formData.url && !formData.url.includes("https://") && (
+                  <span class="text-xs text-neutral-500">
+                    Include https:// for best results.
+                  </span>
+                )}
               </label>
 
               {/* <!-- Color Picker --> */}
@@ -46,8 +73,11 @@ export default function Form() {
                   </div>
                   <input
                     type="color"
-                    value="#3b82f6"
+                    name="color"
+                    value={formData.color}
+                    onChange={handleInputChange}
                     class="h-12 w-12 cursor-pointer rounded-full border border-neutral-700 bg-neutral-800 p-1 shadow-inner shadow-black/50"
+                    readOnly
                   />
                 </div>
                 <div class="mt-5 flex items-center gap-3 text-xs text-neutral-500">
@@ -63,34 +93,18 @@ export default function Form() {
                 <span class="text-xs font-semibold uppercase tracking-wider text-neutral-400">
                   Category
                 </span>
-                <select class="w-full bg-transparent text-base text-white outline-none">
-                  <option class="bg-neutral-900 text-white">
-                    Select category
-                  </option>
-                  <option value="Social" class="bg-neutral-900 text-white">
-                    Social
-                  </option>
-                  <option value="Video" class="bg-neutral-900 text-white">
-                    Video
-                  </option>
-                  <option value="Design" class="bg-neutral-900 text-white">
-                    Design
-                  </option>
-                  <option value="Streaming" class="bg-neutral-900 text-white">
-                    Streaming
-                  </option>
-                  <option value="Video" class="bg-neutral-900 text-white">
-                    Productivity
-                  </option>
-                  <option value="Video" class="bg-neutral-900 text-white">
-                    Entertainment
-                  </option>
-                  <option value="Video" class="bg-neutral-900 text-white">
-                    Shopping
-                  </option>
-                  <option value="Video" class="bg-neutral-900 text-white">
-                    Music
-                  </option>
+                <select
+                  onChange={handleInputChange}
+                  value={formData.category}
+                  name="category"
+                  class="w-full bg-transparent text-base text-white outline-none"
+                  required
+                >
+                  {categories.map((category) => (
+                    <option key={category.id} class="bg-neutral-900 text-white">
+                      {category.name}
+                    </option>
+                  ))}
                 </select>
                 <span class="text-xs text-neutral-500">
                   Helps you filter quicker later.
@@ -106,8 +120,12 @@ export default function Form() {
                 </span>
                 <input
                   type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
                   placeholder="Enter username"
                   class="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
+                  required
                 />
                 <span class="text-xs text-neutral-500">
                   Use workspace or personal handle.
@@ -121,12 +139,18 @@ export default function Form() {
                 </span>
                 <input
                   type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
                   placeholder="Enter password"
                   class="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
+                  required
                 />
-                <span class="text-xs text-neutral-500">
-                  Choose at least 6 characters.
-                </span>
+                {formData.password.length < 6 && (
+                  <span class="text-xs text-cyan-600">
+                    Choose at least 6 characters.
+                  </span>
+                )}
               </label>
             </div>
           </div>
@@ -144,6 +168,7 @@ export default function Form() {
               </button>
               <button
                 type="submit"
+                onSubmit={() => handleSubmitForm(formData)}
                 class="w-full rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-500 md:w-auto"
               >
                 Add Bookmark

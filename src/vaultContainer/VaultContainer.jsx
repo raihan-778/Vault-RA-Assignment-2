@@ -1,6 +1,6 @@
 import VaultAction from "./VaultAction";
 
-export default function VaultContainer() {
+export default function VaultContainer({ handlaSubmitForm }) {
   return (
     <main className="p-8">
       <div className="max-w-7xl mx-auto space-y-10 px-4">
