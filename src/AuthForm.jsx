@@ -19,14 +19,6 @@ export default function AuthForm({ handleSubmitForm }) {
     password: "",
   });
 
-  // const [touched, setTouched] = useState({
-  //   url: false,
-  //   color: false,
-  //   category: false,
-  //   username: false,
-  //   password: false,
-  // });
-
   const validationRules = {
     url: (value) => {
       if (!value.trim()) return "URL is required";

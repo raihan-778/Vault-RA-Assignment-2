@@ -4,10 +4,14 @@ export default function BookMarkCard({ bookMarkData }) {
   const { color, category, url, username, password } = bookMarkData;
 
   const [showPassword, setShowPassword] = useState(false);
-  console.log("color", color, url);
+
   const brandName = url.includes("//")
-    ? url.split("//")[1].split(".com")[0]
-    : url.split(".com")[0];
+    ? url.split("//")[1].split(".")[0].toUpperCase()
+    : url.split(".")[0].toUpperCase();
+
+  const BrandIcon = brandName.slice(0, 2).toUpperCase();
+
+  console.log("BrandColor", color);
 
   return (
     <>
@@ -15,11 +19,16 @@ export default function BookMarkCard({ bookMarkData }) {
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
             <div
-              className={`flex h-12 w-12 items-center justify-center rounded-2xl border bg-[{${color}] border-neutral-800 bg-blue-500/10 text-sm font-semibold uppercase text-${[
-                color,
+              style={{
+                color: color,
+                borderColor: color,
+                backgroundColor: `${color}10`,
+              }}
+              className={`flex h-12 w-12 items-center justify-center rounded-2xl border 
+                   border-neutral-800 bg-blue-500/10 text-sm font-semibold uppercase 
               ]}`}
             >
-              Fb
+              {BrandIcon}
             </div>
             <div>
               <h3 className="text-lg font-semibold">{brandName}</h3>
@@ -42,11 +51,14 @@ export default function BookMarkCard({ bookMarkData }) {
               Password
             </dt>
             <dd className="flex items-center gap-2 text-neutral-50">
-              <span type={`${showPassword ? "text" : "password"}`}>
-                {password}
-              </span>
+              <input
+                type={showPassword ? "text" : "password"}
+                defaultValue="....."
+                value={password}
+                readOnly
+              />
               <button
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowPassword((prevState) => !prevState)}
                 className="text-xs font-semibold text-blue-400"
               >
                 Reveal
