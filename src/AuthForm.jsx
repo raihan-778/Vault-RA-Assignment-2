@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { categories } from "/src/assets/category.js";
 
-export default function AuthForm({ handleSubmitForm }) {
-  const [formData, setFormData] = useState({
+export default function AuthForm({ handleSubmitForm, handleClearAll }) {
+  const defaultFomData = {
     url: "",
     color: "",
     category: "",
     username: "",
     password: "",
-  });
+  };
+  const [formData, setFormData] = useState(defaultFomData);
 
   const [inputErrors, setInputErrors] = useState({
     url: "",
@@ -58,7 +59,7 @@ export default function AuthForm({ handleSubmitForm }) {
     return validationRules[name] ? validationRules[name](value) : "";
   };
 
-  const handleInputChange = (e) => {
+  function handleInputChange(e) {
     const { name, value } = e.target;
     console.log(name, value);
 
@@ -81,7 +82,10 @@ export default function AuthForm({ handleSubmitForm }) {
     //     [name]: error,
     //   }));
     // }
-  };
+  }
+  function handleClear() {
+    setFormData(defaultFomData);
+  }
 
   return (
     <>
@@ -147,7 +151,7 @@ export default function AuthForm({ handleSubmitForm }) {
                   <span class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-neutral-700 bg-neutral-800/80 text-[10px] font-semibold uppercase text-neutral-400">
                     Hex
                   </span>
-                  <span>Matches any brand primary color.</span>
+                  {inputErrors.color && <span>{inputErrors.color}</span>}
                 </div>
               </div>
 
@@ -169,9 +173,11 @@ export default function AuthForm({ handleSubmitForm }) {
                     </option>
                   ))}
                 </select>
-                <span class="text-xs text-neutral-500">
-                  Helps you filter quicker later.
-                </span>
+                {inputErrors.category && (
+                  <span class="text-xs text-neutral-500">
+                    {inputErrors.category}
+                  </span>
+                )}
               </label>
             </div>
 
@@ -190,9 +196,11 @@ export default function AuthForm({ handleSubmitForm }) {
                   class="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
                   required
                 />
-                <span class="text-xs text-neutral-500">
-                  Use workspace or personal handle.
-                </span>
+                {inputErrors.username && (
+                  <span class="text-xs text-neutral-500">
+                    {inputErrors.username}
+                  </span>
+                )}
               </label>
 
               {/* <!-- Password Input --> */}
@@ -209,7 +217,7 @@ export default function AuthForm({ handleSubmitForm }) {
                   class="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
                   required
                 />
-                {formData.password.length < 6 && (
+                {inputErrors.password && (
                   <span class="text-xs text-cyan-600">
                     Choose at least 6 characters.
                   </span>
@@ -225,6 +233,7 @@ export default function AuthForm({ handleSubmitForm }) {
             <div class="flex flex-1 justify-end gap-3">
               <button
                 type="reset"
+                onClick={handleClear}
                 class="w-full rounded-full border border-neutral-700 px-6 py-3 text-sm font-semibold text-neutral-200 transition hover:border-neutral-500 hover:text-white md:w-auto"
               >
                 Clear
@@ -235,7 +244,7 @@ export default function AuthForm({ handleSubmitForm }) {
                   handleSubmitForm(
                     formData,
                     validateFormField,
-                    setTouched,
+                    defaultFomData,
                     setInputErrors
                   );
                 }}

@@ -9,22 +9,21 @@ import { defaultbookMarks } from "/src/assets/defaultBookMarks.js";
 function App() {
   const [bookMarkData, setBookMarkData] = useState(defaultbookMarks);
 
+  // const [formData, setFormData] = useState(defaultFomData);
+
   console.log(defaultbookMarks);
   function handleSubmit(
     newBoomarkData,
     validateFormField,
-    setTouched,
+
     setInputErrors
   ) {
     const newErrors = {};
-    const allTouched = {};
 
     Object.keys(newBoomarkData).forEach((key) => {
-      allTouched[key] = true;
       newErrors[key] = validateFormField(key, newBoomarkData[key]);
     });
 
-    setTouched(allTouched);
     setInputErrors(newErrors);
 
     const hasErrors = Object.values(newErrors).some((error) => error !== "");
@@ -36,6 +35,10 @@ function App() {
     console.log("handlesubmit clicked");
 
     setBookMarkData([...bookMarkData, newBoomarkData]);
+  }
+
+  function handleClearAll(setFormData, resetFormData) {
+    setFormData(resetFormData);
   }
 
   // const defaultbookmark = {
