@@ -1,12 +1,15 @@
 import BookMarkCard from "./BookMarkCard";
 import VaultAction from "./VaultAction";
 
-export default function VaultContainer({ bookMarkData }) {
+export default function VaultContainer({ bookMarkData, setBookMarkData }) {
   return (
     <main className="p-8">
       <div className="max-w-7xl mx-auto space-y-10 px-4">
         {/* <!-- Search, Sort, and Filter Buttons --> */}
-        <VaultAction />
+        <VaultAction
+          setBookMarkData={setBookMarkData}
+          bookMarkData={bookMarkData}
+        />
 
         {/* <!-- Password Cards Grid --> */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">

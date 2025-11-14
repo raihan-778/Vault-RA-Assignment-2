@@ -11,7 +11,6 @@ function App() {
 
   // const [formData, setFormData] = useState(defaultFomData);
 
-  console.log(defaultbookMarks);
   function handleSubmit(newBoomarkData, validateFormField) {
     const newErrors = {};
 
@@ -31,20 +30,15 @@ function App() {
     }
   }
 
-  // const defaultbookmark = {
-  //   url: "Facebook.com",
-  //   color: "#1877F2",
-  //   category: "Social",
-  //   username: "Raihan_778",
-  //   password: "123456",
-  // };
-
   return (
     <>
       <div>
         <Header />
         <AuthForm handleSubmitForm={handleSubmit} />
-        <VaultContainer bookMarkData={bookMarkData} />
+        <VaultContainer
+          bookMarkData={bookMarkData}
+          setBookMarkData={setBookMarkData}
+        />
         <Footer />
       </div>
     </>

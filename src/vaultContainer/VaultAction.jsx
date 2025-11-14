@@ -1,7 +1,25 @@
+import { useState } from "react";
 import SearchLogo from "../assets/images/SearchLogo";
 import SortLogo from "../assets/images/SortLogo";
 
-export default function VaultAction(handleSearch) {
+export default function VaultAction({ setBookMarkData, bookMarkData }) {
+  const [searchTearm, setSearchTearm] = useState("");
+
+  console.log("voltAction", bookMarkData);
+
+  function handleSearch(data) {
+    setSearchTearm(data);
+    console.log("filterData", searchTearm, bookMarkData);
+
+    const filteredBookmark = [
+      bookMarkData.filter((bookMark) =>
+        bookMark.url.toLowerCase().includes(searchTearm.toLowerCase())
+      ),
+    ];
+
+    setBookMarkData(filteredBookmark);
+  }
+
   return (
     <section className="rounded-3xl border border-neutral-800 bg-gradient-to-br from-neutral-900/80 to-neutral-900/40 p-6 shadow-2xl shadow-black/40 backdrop-blur">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
@@ -12,8 +30,9 @@ export default function VaultAction(handleSearch) {
           </span>
           <input
             type="text"
+            value={searchTearm}
             placeholder="Search saved credentials"
-            onChange={handleSearch}
+            onChange={(e) => handleSearch(e.target.value)}
             className="w-full rounded-2xl border border-neutral-800 bg-neutral-950/60 py-3 pl-11 pr-4 text-sm text-white placeholder:text-neutral-500 transition focus:border-blue-500 focus:bg-neutral-950 focus:outline-none"
           />
         </label>
