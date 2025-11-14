@@ -12,33 +12,23 @@ function App() {
   // const [formData, setFormData] = useState(defaultFomData);
 
   console.log(defaultbookMarks);
-  function handleSubmit(
-    newBoomarkData,
-    validateFormField,
-
-    setInputErrors
-  ) {
+  function handleSubmit(newBoomarkData, validateFormField) {
     const newErrors = {};
 
     Object.keys(newBoomarkData).forEach((key) => {
       newErrors[key] = validateFormField(key, newBoomarkData[key]);
     });
 
-    setInputErrors(newErrors);
-
     const hasErrors = Object.values(newErrors).some((error) => error !== "");
 
-    if (!hasErrors) {
-      console.log("Form submitted successfully:", newBoomarkData);
+    if (hasErrors) {
+      alert("Form submission failed due to validation errors:", newErrors);
+    } else {
+      console.log("handlesubmit clicked");
       alert("Form submitted successfully!");
+
+      setBookMarkData([...bookMarkData, newBoomarkData]);
     }
-    console.log("handlesubmit clicked");
-
-    setBookMarkData([...bookMarkData, newBoomarkData]);
-  }
-
-  function handleClearAll(setFormData, resetFormData) {
-    setFormData(resetFormData);
   }
 
   // const defaultbookmark = {
