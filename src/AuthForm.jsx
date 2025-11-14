@@ -10,20 +10,83 @@ export default function AuthForm({ handleSubmitForm }) {
     password: "",
   });
 
+  const [inputErrors, setInputErrors] = useState({
+    url: "",
+    color: "",
+    category: "",
+    username: "",
+    password: "",
+  });
+
+  // const [touched, setTouched] = useState({
+  //   url: false,
+  //   color: false,
+  //   category: false,
+  //   username: false,
+  //   password: false,
+  // });
+
+  const validationRules = {
+    url: (value) => {
+      if (!value.trim()) return "URL is required";
+      if (!/^https?:\/\/.+\..+/.test(value)) return "Please enter a valid URL";
+      return "";
+    },
+    color: (value) => {
+      if (!value.trim()) return "Color is required";
+      if (!/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(value))
+        return "Please enter a valid hex color (e.g., #ff0000)";
+      return "";
+    },
+    category: (value) => {
+      if (!value.trim()) return "Category is required";
+      return "";
+    },
+    username: (value) => {
+      if (!value.trim()) return "Username is required";
+      if (value.length < 3) return "Username must be at least 3 characters";
+      return "";
+    },
+    password: (value) => {
+      if (!value.trim()) return "Password is required";
+      if (value.length < 6) return "Password must be at least 6 characters";
+      return "";
+    },
+  };
+
+  const validateFormField = (name, value) => {
+    return validationRules[name] ? validationRules[name](value) : "";
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
-    console.log("form data", formData.url);
-    setFormData({
-      ...formData,
+
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
+
+    // Validate immediately on every keystroke
+    const error = validateFormField(name, value);
+    setInputErrors((prev) => ({
+      ...prev,
+      [name]: error,
+    }));
+
+    // if (touched[name]) {
+    //   const error = validateFormField(name, value);
+    //   setInputErrors((prev) => ({
+    //     ...prev,
+    //     [name]: error,
+    //   }));
+    // }
   };
 
   return (
     <>
       <div class="max-w-7xl mx-auto mt-8 px-4">
-        <form class="mb-10 rounded-2xl border border-neutral-800 bg-gradient-to-br from-neutral-900/70 to-neutral-800/40 p-8 shadow-2xl shadow-black/40 backdrop-blur">
+        <htmlForm class="mb-10 rounded-2xl border border-neutral-800 bg-gradient-to-br from-neutral-900/70 to-neutral-800/40 p-8 shadow-2xl shadow-black/40 backdrop-blur">
           <div class="mb-8 flex flex-col gap-3">
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-400">
               New bookmark
@@ -53,9 +116,9 @@ export default function AuthForm({ handleSubmitForm }) {
                   class="w-full bg-transparent text-base text-white placeholder:text-neutral-500 focus:outline-none"
                   required
                 />
-                {formData.url && !formData.url.includes("https://") && (
+                {inputErrors.url && (
                   <span class="text-xs text-neutral-500">
-                    Include https:// for best results.
+                    {inputErrors.url}
                   </span>
                 )}
               </label>
@@ -168,14 +231,21 @@ export default function AuthForm({ handleSubmitForm }) {
               </button>
               <button
                 type="submit"
-                onSubmit={() => handleSubmitForm(formData)}
+                onClick={() => {
+                  handleSubmitForm(
+                    formData,
+                    validateFormField,
+                    setTouched,
+                    setInputErrors
+                  );
+                }}
                 class="w-full rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-500 md:w-auto"
               >
                 Add Bookmark
               </button>
             </div>
           </div>
-        </form>
+        </htmlForm>
       </div>
     </>
   );
