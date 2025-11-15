@@ -17,8 +17,6 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
       return;
     }
 
-    console.log("filterData", searchTearm, bookMarkData);
-
     const filteredBookmark =
       oldBookMarkData &&
       oldBookMarkData.filter((item) => {
@@ -33,6 +31,7 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
   }
 
   const sortBy = (field, direction) => {
+    console.log("sortBy", bookMarkData);
     const sorted =
       bookMarkData &&
       [...bookMarkData].sort((a, b) => {
@@ -42,7 +41,7 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
         });
         return direction === "asc" ? comparison : -comparison;
       });
-
+    console.log("sortedData", sorted);
     setBookMarkData(sorted); // Update state with sorted data
   };
 
