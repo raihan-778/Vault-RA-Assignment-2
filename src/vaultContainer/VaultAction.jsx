@@ -12,32 +12,36 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
   function handleSearch(value) {
     setSearchTearm(value);
 
-    if (value.trim() === "") {
+    if (value?.trim() === "") {
       setBookMarkData(oldBookMarkData);
       return;
     }
 
     console.log("filterData", searchTearm, bookMarkData);
 
-    const filteredBookmark = oldBookMarkData.filter((item) => {
-      if (!item.url || !item.username) return false;
-      return (
-        item.url?.toLowerCase().includes(value.toLowerCase()) ||
-        item.username?.toLowerCase().includes(value.toLowerCase())
-      );
-    });
+    const filteredBookmark =
+      oldBookMarkData &&
+      oldBookMarkData.filter((item) => {
+        if (!item.url || !item.username) return false;
+        return (
+          item.url?.toLowerCase().includes(value.toLowerCase()) ||
+          item.username?.toLowerCase().includes(value.toLowerCase())
+        );
+      });
 
     setBookMarkData(filteredBookmark);
   }
 
   const sortBy = (field, direction) => {
-    const sorted = [...bookMarkData].sort((a, b) => {
-      if (!a[field] || !b[field]) return 0;
-      const comparison = a[field].localeCompare(b[field], undefined, {
-        sensitivity: "base",
+    const sorted =
+      bookMarkData &&
+      [...bookMarkData].sort((a, b) => {
+        if (!a[field] || !b[field]) return 0;
+        const comparison = a[field].localeCompare(b[field], undefined, {
+          sensitivity: "base",
+        });
+        return direction === "asc" ? comparison : -comparison;
       });
-      return direction === "asc" ? comparison : -comparison;
-    });
 
     setBookMarkData(sorted); // Update state with sorted data
   };
