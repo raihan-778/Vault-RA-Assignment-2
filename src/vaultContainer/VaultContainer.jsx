@@ -1,4 +1,5 @@
 import BookMarkCard from "./BookMarkCard";
+import NoBookMarkCard from "./NoBookMarkCard";
 import VaultAction from "./VaultAction";
 
 export default function VaultContainer({ bookMarkData, setBookMarkData }) {
