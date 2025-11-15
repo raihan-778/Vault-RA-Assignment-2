@@ -21,8 +21,8 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
 
     const filteredBookmark = oldBookMarkData.filter(
       (item) =>
-        item.url.toLowerCase().includes(value.toLowerCase()) ||
-        item.username.toLowerCase().includes(value.toLowerCase())
+        item.url?.toLowerCase().includes(value.toLowerCase()) ||
+        item.username?.toLowerCase().includes(value.toLowerCase())
     );
 
     setBookMarkData(filteredBookmark);
