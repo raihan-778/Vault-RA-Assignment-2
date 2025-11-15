@@ -9,6 +9,7 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
   const [sortField, setSortField] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
+  const savedBookMark = Array.isArray(bookMarkData) ? bookMarkData : [];
   function handleSearch(value) {
     setSearchTearm(value);
 
@@ -19,7 +20,7 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
     const searchValue = value.toLowerCase();
     setBookMarkData(bookMarkData);
 
-    const filteredBookmark = (bookMarkData || []).filter((item) => {
+    const filteredBookmark = (savedBookMark || []).filter((item) => {
       if (!item || !item.url || !item.username) return false;
 
       const url = item.url.toLowerCase();
@@ -32,16 +33,14 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
 
   const sortBy = (field, direction) => {
     console.log("sortBy", bookMarkData);
-    const sorted =
-      bookMarkData &&
-      [...bookMarkData].sort((a, b) => {
-        if (!a[field] || !b[field]) return 0;
+    const sorted = [...savedBookMark].sort((a, b) => {
+      if (!a[field] || !b[field]) return 0;
 
-        const comparison = a[field].localeCompare(b[field], undefined, {
-          sensitivity: "base",
-        });
-        return direction === "asc" ? comparison : -comparison;
+      const comparison = a[field].localeCompare(b[field], undefined, {
+        sensitivity: "base",
       });
+      return direction === "asc" ? comparison : -comparison;
+    });
     console.log("sortedData", sorted);
     setBookMarkData(sorted); // Update state with sorted data
   };
