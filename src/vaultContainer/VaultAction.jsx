@@ -32,6 +32,7 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
 
   const sortBy = (field, direction) => {
     const sorted = [...bookMarkData].sort((a, b) => {
+      if (!a[field] || !b[field]) return 0;
       const comparison = a[field].localeCompare(b[field], undefined, {
         sensitivity: "base",
       });
