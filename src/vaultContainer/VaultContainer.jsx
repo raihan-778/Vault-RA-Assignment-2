@@ -1,5 +1,4 @@
 import BookMarkCard from "./BookMarkCard";
-import NoBookmarkCard from "./NoBookmarkCard";
 import VaultAction from "./VaultAction";
 
 export default function VaultContainer({ bookMarkData, setBookMarkData }) {
@@ -22,7 +21,7 @@ export default function VaultContainer({ bookMarkData, setBookMarkData }) {
             {/* <!-- Card 1 - Facebook --> */}
           </div>
         ) : (
-          <NoBookmarkCard />
+          <NoBookMarkCard />
         )}
       </div>
     </main>

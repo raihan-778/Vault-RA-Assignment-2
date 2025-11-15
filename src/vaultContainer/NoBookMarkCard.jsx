@@ -1,4 +1,4 @@
-export default function NoBookmarkCard() {
+export default function NoBookMarkCard() {
   return (
     <article className="rounded-3xl  border border-neutral-800 bg-neutral-900/70 p-12 shadow-2xl shadow-black/30 text-center">
       <div className="space-y-2 flex flex-col items-center">
