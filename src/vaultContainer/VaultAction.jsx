@@ -12,20 +12,20 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
   function handleSearch(value) {
     setSearchTearm(value);
 
-    if (value?.trim() === "") {
-      setBookMarkData(oldBookMarkData);
+    if (!value || value.trim() === "") {
+      setBookMarkData(bookMarkData);
       return;
     }
+    const searchValue = value.toLowerCase();
+    setOldBookMarkData(bookMarkData);
 
-    const filteredBookmark =
-      oldBookMarkData &&
-      oldBookMarkData.filter((item) => {
-        if (!item.url || !item.username) return false;
-        return (
-          item.url?.toLowerCase().includes(value.toLowerCase()) ||
-          item.username?.toLowerCase().includes(value.toLowerCase())
-        );
-      });
+    const filteredBookmark = (bookMarkData || []).filter((item) => {
+      if (!item || !item.url || !item.username) return false;
+
+      const url = item.url.toLowerCase();
+      const username = item.username.toLowerCase();
+      return url.includes(searchValue) || username.includes(searchValue);
+    });
 
     setBookMarkData(filteredBookmark);
   }
@@ -36,6 +36,7 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
       bookMarkData &&
       [...bookMarkData].sort((a, b) => {
         if (!a[field] || !b[field]) return 0;
+
         const comparison = a[field].localeCompare(b[field], undefined, {
           sensitivity: "base",
         });
