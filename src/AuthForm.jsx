@@ -66,14 +66,6 @@ export default function AuthForm({ handleSubmitForm }) {
       ...prev,
       [name]: error,
     }));
-
-    // if (touched[name]) {
-    //   const error = validateFormField(name, value);
-    //   setInputErrors((prev) => ({
-    //     ...prev,
-    //     [name]: error,
-    //   }));
-    // }
   }
   function handleClear() {
     setFormData(defaultFomData);
@@ -82,7 +74,7 @@ export default function AuthForm({ handleSubmitForm }) {
   return (
     <>
       <div className="max-w-7xl mx-auto mt-8 px-4">
-        <htmlForm className="mb-10 rounded-2xl border border-neutral-800 bg-linear-to-br from-neutral-900/70 to-neutral-800/40 p-8 shadow-2xl shadow-black/40 backdrop-blur">
+        <form className="mb-10 rounded-2xl border border-neutral-800 bg-linear-to-br from-neutral-900/70 to-neutral-800/40 p-8 shadow-2xl shadow-black/40 backdrop-blur">
           <div className="mb-8 flex flex-col gap-3">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-400">
               New bookmark
@@ -239,7 +231,8 @@ export default function AuthForm({ handleSubmitForm }) {
               </button>
               <button
                 type="submit"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   handleSubmitForm(
                     formData,
                     validateFormField,
@@ -254,7 +247,7 @@ export default function AuthForm({ handleSubmitForm }) {
               </button>
             </div>
           </div>
-        </htmlForm>
+        </form>
       </div>
     </>
   );
