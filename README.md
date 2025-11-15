@@ -6,53 +6,63 @@ This project converts a provided HTML template into a React-based, component-dri
 ---
 
 ## 🚀 Live Demo
-*(Add your deployed link here)*
+
+_(https://vault-ra-assignment-2.vercel.app/)_
 
 ---
 
 ## 🖼️ Screenshots
-*(Add screenshots here)*  
-Example:  
-```
+
+_(Add screenshots here)_
+
 ![App Screenshot](./screenshots/home.png)
-```
+![App Screenshot](./screenshots/DynamicGreetings.png)
+![App Screenshot](./screenshots/EmptyMsg.png)
+![App Screenshot](./screenshots/FormValidation.png)
+![App Screenshot](./screenshots/revelPassword.png)
+![App Screenshot](./screenshots/sort-filter.png)
+![App Screenshot](./screenshots/validConformation.png)
 
 ---
 
 ## ✨ Features Overview
 
 ### 🔹 1. Dynamic Greeting
-- Displays greeting based on time:  
-  - Morning → “Good Morning”  
-  - Noon → “Good Noon”  
+
+- Displays greeting based on time:
+  - Morning → “Good Morning”
+  - Afternoon→ “Good Afternoon”
   - Evening → “Good Evening”
 - Shows date in **Day, Mon DD** format (e.g., Monday, Nov 10).
 
 ---
 
 ### 🔹 2. New Bookmark Form
+
 - Add bookmarks with:
   - Website URL
   - Category
   - Username
   - Password
+    -color
 - **Full validation includes:**
-  - Required fields  
-  - Valid URL  
-  - Password ≥ 6 characters  
+  - Required fields
+  - Valid URL
+  - Password ≥ 6 characters
 - **Field-level error messages**
 - **Clear button** resets the form
-- Auto-generates **Website Name** from the URL
+- Auto-generates **Website Name** **Brand Icon** from the URL
 
 ---
 
 ### 🔹 3. Bookmark Cards (Grid View)
+
 - Responsive grid view of bookmarks
 - Each card shows:
-  - Name  
-  - URL  
-  - Category  
-  - Username  
+  - Name
+  - URL
+  - Category
+  - Username
   - Password (masked)
 - Custom icon:
   - Based on first **two domain characters**
@@ -62,8 +72,9 @@ Example:
 ---
 
 ### 🔹 4. Search Functionality
+
 - Real-time search matching:
-  - Name  
+  - username
   - URL
 - Empty search → show all bookmarks
 - No result → shows a themed **“Not Found”** message
@@ -71,61 +82,67 @@ Example:
 ---
 
 ### 🔹 5. Sorting Feature
+
 - Sort bookmarks by:
-  - **Name (ASC / DESC)**
-  - **Date (ASC / DESC)**
+  - **url (ASC / DESC)**
+  - **username (ASC / DESC)**
 - Interactive "Sort By" dropdown UI
 
 ---
 
 ### 🔹 6. Component-Based Architecture
+
 - Organized by features:
-  - Form  
-  - Grid  
-  - Card  
-  - Search  
-  - Sorting  
-  - Utilities  
-- Clean, logical structure  
-- No third-party UI/utility libraries  
-- No unnecessary design changes  
+  - Form
+  - Grid
+  - Card
+  - Search
+  - Sorting
+  - Utilities
+- Clean, logical structure
+- No third-party UI/utility libraries
+- No unnecessary design changes
 
 ---
 
 ## 🛠️ Tech Stack
+
 - **React (Vite)**
 - **TailwindCSS**
 - **JavaScript (ES6)**
-- **Local State (useState / useEffect)**
+- **Local State (useState)**
 
 ---
 
 ## 📦 Installation & Setup
 
 ### 1️⃣ Create Vite Project
+
 ```bash
 npm create vite@latest
 ```
 
 ### 2️⃣ Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 3️⃣ Install TailwindCSS
+
 ```bash
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+npm install tailwindcss @tailwindcss/vite
+
 ```
 
 Add Tailwind directives:
+
 ```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 ```
 
 ### 4️⃣ Start Dev Server
+
 ```bash
 npm run dev
 ```
@@ -133,25 +150,31 @@ npm run dev
 ---
 
 ## 📁 Recommended Folder Structure
+
 ```
-src/
-│── components/
-│   ├── Greeting.jsx
-│   ├── SearchBar.jsx
-│   ├── SortMenu.jsx
-│   ├── BookmarkForm.jsx
-│   ├── BookmarkCard.jsx
-│   └── BookmarkGrid.jsx
-│
-│── utils/
-│   ├── validate.js
-│   ├── extractName.js
-│   ├── sort.js
-│   └── time.js
-│
-│── App.jsx
-│── main.jsx
-│── index.css
+VAULT-RA-ASSIGNMENT-2
+
+├── src/
+│   ├── assets/
+│   └── vaultContainer/
+│       ├── BookMarkCard.jsx
+│       ├── NoBookMarkCard.jsx
+│       ├── VaultAction.jsx
+│       └── VaultContainer.jsx
+│   ├── App.css
+│   ├── App.jsx
+│   ├── AuthForm.jsx
+│   ├── Footer.jsx
+│   ├── Header.jsx
+│   ├── index.css
+│   └── main.jsx
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+└── vite.config.js
 ```
 
 ---
@@ -159,17 +182,21 @@ src/
 ## 🧠 Key Logics
 
 ### 🔹 URL → Name Extraction
+
 Automatically converts URL domain into a user-friendly name.
 
 ### 🔹 Custom Sorting
+
 Pure JavaScript sorting — no libraries used.
 
 ### 🔹 Password Reveal Toggle
+
 Toggles visibility between `"password"` and `"text"`.
 
 ---
 
 ## 📄 Assignment Requirements (Completed)
+
 ✔ Vite + React project created  
 ✔ TailwindCSS installed  
 ✔ HTML converted to React  
@@ -184,13 +211,13 @@ Toggles visibility between `"password"` and `"text"`.
 ✔ Clear button resets form  
 ✔ Organized components  
 ✔ No external libraries  
-✔ Professional README  
+✔ Professional README
 
 ---
 
 ## 👨‍💻 Author
+
 **Your Name**  
-Email: your.email@example.com  
-GitHub: your-github-profile
-
-
+Raihan Uddin
+Email:raihanarif778@gmail.com  
+GitHub: your-github-raihan-778
