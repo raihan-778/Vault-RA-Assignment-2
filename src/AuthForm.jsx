@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { categories } from "/src/assets/category.js";
 
-export default function AuthForm({ handleSubmitForm }) {
+export default function AuthForm({ bookMarkData, setBookMarkData }) {
   const defaultFomData = {
     url: "",
     color: "",
@@ -50,6 +50,30 @@ export default function AuthForm({ handleSubmitForm }) {
   const validateFormField = (name, value) => {
     return validationRules[name] ? validationRules[name](value) : "";
   };
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const newErrors = {};
+
+    Object.keys(formData).forEach((key) => {
+      newErrors[key] = validateFormField(key, formData[key]);
+    });
+
+    const hasErrors = Object.values(newErrors).some((error) => error !== "");
+
+    if (hasErrors) {
+      const errorMessages = Object.values(newErrors)
+        .filter((message) => message !== "") // Get only non-empty error messages
+        .join("\n"); // Join them with a new line
+
+      alert(`Please fix the following errors:\n${errorMessages}`);
+    } else {
+      console.log("handlesubmit clicked");
+      alert("Form submitted successfully!");
+
+      setBookMarkData([...bookMarkData, formData]);
+    }
+  }
 
   function handleInputChange(e) {
     const { name, value } = e.target;
@@ -231,16 +255,7 @@ export default function AuthForm({ handleSubmitForm }) {
               </button>
               <button
                 type="submit"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSubmitForm(
-                    formData,
-                    validateFormField,
-                    defaultFomData,
-                    inputErrors,
-                    setInputErrors
-                  );
-                }}
+                onClick={handleSubmit}
                 className="w-full rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-500 md:w-auto"
               >
                 Add Bookmark

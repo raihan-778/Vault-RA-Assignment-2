@@ -11,30 +11,38 @@ function App() {
 
   // const [formData, setFormData] = useState(defaultFomData);
 
-  function handleSubmit(newBoomarkData, validateFormField) {
-    const newErrors = {};
+  // function handleSubmit(newBoomarkData, validateFormField) {
+  //   const newErrors = {};
 
-    Object.keys(newBoomarkData).forEach((key) => {
-      newErrors[key] = validateFormField(key, newBoomarkData[key]);
-    });
+  //   Object.keys(newBoomarkData).forEach((key) => {
+  //     newErrors[key] = validateFormField(key, newBoomarkData[key]);
+  //   });
 
-    const hasErrors = Object.values(newErrors).some((error) => error !== "");
+  //   const hasErrors = Object.values(newErrors).some((error) => error !== "");
 
-    if (hasErrors) {
-      alert("Form submission failed due to validation errors:", newErrors);
-    } else {
-      console.log("handlesubmit clicked");
-      alert("Form submitted successfully!");
+  //   if (hasErrors) {
+  //     const errorMessages = Object.values(newErrors)
+  //       .filter((message) => message !== "") // Get only non-empty error messages
+  //       .join("\n"); // Join them with a new line
 
-      setBookMarkData([...bookMarkData, newBoomarkData]);
-    }
-  }
+  //     alert(`Please fix the following errors:\n${errorMessages}`);
+  //   } else {
+  //     console.log("handlesubmit clicked");
+  //     alert("Form submitted successfully!");
+
+  //     setBookMarkData([...bookMarkData, newBoomarkData]);
+  //   }
+  // }
 
   return (
     <>
       <div>
         <Header />
-        <AuthForm handleSubmitForm={handleSubmit} />
+        <AuthForm
+          bookMarkData={bookMarkData}
+          setBookMarkData={setBookMarkData}
+          // handleSubmitForm={handleSubmit}
+        />
         <VaultContainer
           bookMarkData={bookMarkData}
           setBookMarkData={setBookMarkData}
