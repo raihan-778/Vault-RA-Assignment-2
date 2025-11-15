@@ -6,10 +6,10 @@ export default function BookMarkCard({ bookMarkData }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const brandName = url?.includes("//")
-    ? url?.split("//")[1].split(".")[0].toUpperCase()
-    : url?.split(".")[0].toUpperCase();
+    ? url.split("//")[1]?.split(".")[0]?.toUpperCase() || "UNKNOWN"
+    : url?.split(".")[0]?.toUpperCase() || "UNKNOWN";
 
-  const BrandIcon = brandName.slice(0, 2).toUpperCase();
+  const BrandIcon = brandName?.slice(0, 2)?.toUpperCase() || "??";
 
   return (
     <>
