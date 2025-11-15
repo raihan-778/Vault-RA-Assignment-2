@@ -19,11 +19,13 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
 
     console.log("filterData", searchTearm, bookMarkData);
 
-    const filteredBookmark = oldBookMarkData.filter(
-      (item) =>
+    const filteredBookmark = oldBookMarkData.filter((item) => {
+      if (!item.url || !item.username) return false;
+      return (
         item.url?.toLowerCase().includes(value.toLowerCase()) ||
         item.username?.toLowerCase().includes(value.toLowerCase())
-    );
+      );
+    });
 
     setBookMarkData(filteredBookmark);
   }
