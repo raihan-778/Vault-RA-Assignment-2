@@ -13,11 +13,11 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
     setSearchTearm(value);
 
     if (!value || value.trim() === "") {
-      setBookMarkData(bookMarkData);
+      setBookMarkData(oldBookMarkData);
       return;
     }
     const searchValue = value.toLowerCase();
-    setOldBookMarkData(bookMarkData);
+    setBookMarkData(bookMarkData);
 
     const filteredBookmark = (bookMarkData || []).filter((item) => {
       if (!item || !item.url || !item.username) return false;
