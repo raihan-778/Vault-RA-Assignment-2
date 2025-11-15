@@ -82,7 +82,7 @@ export default function AuthForm({ handleSubmitForm }) {
   return (
     <>
       <div className="max-w-7xl mx-auto mt-8 px-4">
-        <htmlForm className="mb-10 rounded-2xl border border-neutral-800 bg-gradient-to-br from-neutral-900/70 to-neutral-800/40 p-8 shadow-2xl shadow-black/40 backdrop-blur">
+        <htmlForm className="mb-10 rounded-2xl border border-neutral-800 bg-linear-to-br from-neutral-900/70 to-neutral-800/40 p-8 shadow-2xl shadow-black/40 backdrop-blur">
           <div className="mb-8 flex flex-col gap-3">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-400">
               New bookmark

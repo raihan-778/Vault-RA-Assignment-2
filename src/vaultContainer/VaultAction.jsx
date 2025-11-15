@@ -3,22 +3,41 @@ import SearchLogo from "../assets/images/SearchLogo";
 import SortLogo from "../assets/images/SortLogo";
 
 export default function VaultAction({ setBookMarkData, bookMarkData }) {
+  console.log("vaultAction", bookMarkData);
+  const [oldBookMarkData, setOldBookMarkData] = useState(bookMarkData);
   const [searchTearm, setSearchTearm] = useState("");
+  const [sortField, setSortField] = useState("");
+  const [sortDirection, setSortDirection] = useState("asc");
 
-  console.log("voltAction", bookMarkData);
+  function handleSearch(value) {
+    setSearchTearm(value);
 
-  function handleSearch(data) {
-    setSearchTearm(data);
+    if (value.trim() === "") {
+      setBookMarkData(oldBookMarkData);
+      return;
+    }
+
     console.log("filterData", searchTearm, bookMarkData);
 
-    const filteredBookmark = [
-      bookMarkData.filter((bookMark) =>
-        bookMark.url.toLowerCase().includes(searchTearm.toLowerCase())
-      ),
-    ];
+    const filteredBookmark = oldBookMarkData.filter(
+      (item) =>
+        item.url.toLowerCase().includes(value.toLowerCase()) ||
+        item.username.toLowerCase().includes(value.toLowerCase())
+    );
 
     setBookMarkData(filteredBookmark);
   }
+
+  const sortBy = (field, direction) => {
+    const sorted = [...bookMarkData].sort((a, b) => {
+      const comparison = a[field].localeCompare(b[field], undefined, {
+        sensitivity: "base",
+      });
+      return direction === "asc" ? comparison : -comparison;
+    });
+
+    setBookMarkData(sorted); // Update state with sorted data
+  };
 
   return (
     <section className="rounded-3xl border border-neutral-800 bg-gradient-to-br from-neutral-900/80 to-neutral-900/40 p-6 shadow-2xl shadow-black/40 backdrop-blur">
@@ -38,10 +57,40 @@ export default function VaultAction({ setBookMarkData, bookMarkData }) {
         </label>
 
         <div className="flex flex-wrap gap-2">
-          <button className="inline-flex items-center gap-2 rounded-2xl border border-neutral-800/80 bg-neutral-900/80 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-300 transition hover:border-blue-500 hover:text-white">
-            <SortLogo />
-            Sort by
-          </button>
+          {/* Field selector */}
+          <div className="relative inline-block">
+            <select
+              value={sortField}
+              onChange={(e) => {
+                setSortField(e.target.value);
+                if (e.target.value) sortBy(e.target.value, sortDirection);
+              }}
+              className="appearance-none rounded-2xl border border-neutral-800/80 bg-neutral-900/80 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-300 transition hover:border-blue-500 hover:text-white pr-8"
+            >
+              <option value="" disabled hidden>
+                Sort by
+              </option>
+              <option value="url">URL</option>
+              <option value="username">Username</option>
+            </select>
+            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+              <SortLogo />
+            </div>
+          </div>
+
+          {/* Direction toggle button */}
+          {sortField && (
+            <button
+              onClick={() => {
+                const newDirection = sortDirection === "asc" ? "desc" : "asc";
+                setSortDirection(newDirection);
+                sortBy(sortField, newDirection);
+              }}
+              className="rounded-2xl border border-neutral-800/80 bg-neutral-900/80 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-neutral-300 transition hover:border-blue-500 hover:text-white"
+            >
+              {sortDirection === "asc" ? "↑ Ascending" : "↓ Descending"}
+            </button>
+          )}
         </div>
       </div>
     </section>
